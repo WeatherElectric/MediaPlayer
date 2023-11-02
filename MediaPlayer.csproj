@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{0DEB755F-D57A-4285-9D70-C592E340CDB4}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <RootNamespace>MediaPlayer</RootNamespace>
+        <AssemblyName>MediaPlayer</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <Deterministic>true</Deterministic>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup>
+        <StartupObject/>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Assets.cs" />
+        <Compile Include="BoneMenu.cs" />
+        <Compile Include="Main.cs" />
+        <Compile Include="Melon\ModConsole.cs" />
+        <Compile Include="Melon\ModPref.cs" />
+        <Compile Include="Melon\Preferences.cs" />
+        <Compile Include="Monobehaviours\MediaPlayer.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="TaglibSharp\Aac\AudioHeader.cs" />
+        <Compile Include="TaglibSharp\Aac\BitStream.cs" />
+        <Compile Include="TaglibSharp\Aac\File.cs" />
+        <Compile Include="TaglibSharp\Aiff\File.cs" />
+        <Compile Include="TaglibSharp\Aiff\StreamHeader.cs" />
+        <Compile Include="TaglibSharp\Ape\File.cs" />
+        <Compile Include="TaglibSharp\Ape\Footer.cs" />
+        <Compile Include="TaglibSharp\Ape\Item.cs" />
+        <Compile Include="TaglibSharp\Ape\StreamHeader.cs" />
+        <Compile Include="TaglibSharp\Ape\Tag.cs" />
+        <Compile Include="TaglibSharp\Asf\ContentDescriptionObject.cs" />
+        <Compile Include="TaglibSharp\Asf\ContentDescriptor.cs" />
+        <Compile Include="TaglibSharp\Asf\DescriptionRecord.cs" />
+        <Compile Include="TaglibSharp\Asf\ExtendedContentDescriptionObject.cs" />
+        <Compile Include="TaglibSharp\Asf\File.cs" />
+        <Compile Include="TaglibSharp\Asf\FilePropertiesObject.cs" />
+        <Compile Include="TaglibSharp\Asf\Guid.cs" />
+        <Compile Include="TaglibSharp\Asf\HeaderExtensionObject.cs" />
+        <Compile Include="TaglibSharp\Asf\HeaderObject.cs" />
+        <Compile Include="TaglibSharp\Asf\MetadataLibraryObject.cs" />
+        <Compile Include="TaglibSharp\Asf\Object.cs" />
+        <Compile Include="TaglibSharp\Asf\PaddingObject.cs" />
+        <Compile Include="TaglibSharp\Asf\StreamPropertiesObject.cs" />
+        <Compile Include="TaglibSharp\Asf\Tag.cs" />
+        <Compile Include="TaglibSharp\Asf\UnknownObject.cs" />
+        <Compile Include="TaglibSharp\Audible\File.cs" />
+        <Compile Include="TaglibSharp\Audible\Tag.cs" />
+        <Compile Include="TaglibSharp\ByteVector.cs" />
+        <Compile Include="TaglibSharp\ByteVectorList.cs" />
+        <Compile Include="TaglibSharp\CombinedTag.cs" />
+        <Compile Include="TaglibSharp\CorruptFileException.cs" />
+        <Compile Include="TaglibSharp\Debugger.cs" />
+        <Compile Include="TaglibSharp\Dsf\File.cs" />
+        <Compile Include="TaglibSharp\Dsf\StreamHeader.cs" />
+        <Compile Include="TaglibSharp\File.cs" />
+        <Compile Include="TaglibSharp\FileTypes.cs" />
+        <Compile Include="TaglibSharp\Flac\Block.cs" />
+        <Compile Include="TaglibSharp\Flac\BlockHeader.cs" />
+        <Compile Include="TaglibSharp\Flac\File.cs" />
+        <Compile Include="TaglibSharp\Flac\Picture.cs" />
+        <Compile Include="TaglibSharp\Flac\StreamHeader.cs" />
+        <Compile Include="TaglibSharp\Genres.cs" />
+        <Compile Include="TaglibSharp\Gif\Codec.cs" />
+        <Compile Include="TaglibSharp\Gif\File.cs" />
+        <Compile Include="TaglibSharp\Gif\GifCommentTag.cs" />
+        <Compile Include="TaglibSharp\ICodec.cs" />
+        <Compile Include="TaglibSharp\Id3v1\StringHandler.cs" />
+        <Compile Include="TaglibSharp\Id3v1\Tag.cs" />
+        <Compile Include="TaglibSharp\Id3v2\EventTimeCode.cs" />
+        <Compile Include="TaglibSharp\Id3v2\EventType.cs" />
+        <Compile Include="TaglibSharp\Id3v2\ExtendedHeader.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Footer.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\FrameFactory.cs" />
+        <Compile Include="TaglibSharp\Id3v2\FrameHeader.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\AttachmentFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\ChapterFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\CommentsFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\EventTimeCodeFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\MusicCdIdentifierFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\PlayCountFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\PopularimeterFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\PrivateFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\RelativeVolumeFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\SynchronizedLyricsFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\TableOfContentsFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\TermsOfUseFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\TextIdentificationFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\UniqueFileIdentifierFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\UnknownFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\UnsynchronisedLyricsFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Frames\UrlLinkFrame.cs" />
+        <Compile Include="TaglibSharp\Id3v2\FrameTypes.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Header.cs" />
+        <Compile Include="TaglibSharp\Id3v2\SynchData.cs" />
+        <Compile Include="TaglibSharp\Id3v2\SynchedTextType.cs" />
+        <Compile Include="TaglibSharp\Id3v2\Tag.cs" />
+        <Compile Include="TaglibSharp\Id3v2\TimestampFormat.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\ByteIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\ByteVectorIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\LongArrayIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\LongIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\MakernoteIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\Rational.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\RationalArrayIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\RationalIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SByteIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\ShortArrayIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\ShortIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SLongArrayIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SLongIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SRational.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SRationalArrayIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SRationalIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SShortArrayIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SShortIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\StringIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\StripOffsetsIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SubIFDArrayEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\SubIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\ThumbnailDataIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\UndefinedIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\Entries\UserCommentIFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\IFDDirectory.cs" />
+        <Compile Include="TaglibSharp\IFD\IFDEntry.cs" />
+        <Compile Include="TaglibSharp\IFD\IFDEntryType.cs" />
+        <Compile Include="TaglibSharp\IFD\IFDReader.cs" />
+        <Compile Include="TaglibSharp\IFD\IFDRenderer.cs" />
+        <Compile Include="TaglibSharp\IFD\IFDStructure.cs" />
+        <Compile Include="TaglibSharp\IFD\IFDTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Makernotes\Nikon3MakernoteReader.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\CanonFileInfoEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\CanonMakerNoteEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\CanonPictureInfoEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\ExifEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\GPSEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\IFDEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\IOPEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\Nikon3MakerNoteEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\NikonIsoInfoEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\NikonLensData3EntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\NikonPictureControlEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\NikonPreviewMakerNoteEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\NikonShotInfoEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\NikonVibrationReductionEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\NikonWorldTimeEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\OlympusMakerNoteEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\PanasonicMakerNoteEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\PentaxMakerNoteEntryTag.cs" />
+        <Compile Include="TaglibSharp\IFD\Tags\SonyMakerNoteEntryTag.cs" />
+        <Compile Include="TaglibSharp\IIM\IIMReader.cs" />
+        <Compile Include="TaglibSharp\IIM\IIMTag.cs" />
+        <Compile Include="TaglibSharp\ILazy.cs" />
+        <Compile Include="TaglibSharp\Image\Codec.cs" />
+        <Compile Include="TaglibSharp\Image\CombinedImageTag.cs" />
+        <Compile Include="TaglibSharp\Image\File.cs" />
+        <Compile Include="TaglibSharp\Image\ImageBlockFile.cs" />
+        <Compile Include="TaglibSharp\Image\ImageOrientation.cs" />
+        <Compile Include="TaglibSharp\Image\ImageTag.cs" />
+        <Compile Include="TaglibSharp\Image\NoMetadata\File.cs" />
+        <Compile Include="TaglibSharp\Jpeg\Codec.cs" />
+        <Compile Include="TaglibSharp\Jpeg\File.cs" />
+        <Compile Include="TaglibSharp\Jpeg\JpegCommentTag.cs" />
+        <Compile Include="TaglibSharp\Jpeg\Marker.cs" />
+        <Compile Include="TaglibSharp\Jpeg\Table.cs" />
+        <Compile Include="TaglibSharp\ListBase.cs" />
+        <Compile Include="TaglibSharp\Matroska\Attachment.cs" />
+        <Compile Include="TaglibSharp\Matroska\AudioTrack.cs" />
+        <Compile Include="TaglibSharp\Matroska\EBMLElement.cs" />
+        <Compile Include="TaglibSharp\Matroska\EBMLIDs.cs" />
+        <Compile Include="TaglibSharp\Matroska\EBMLreader.cs" />
+        <Compile Include="TaglibSharp\Matroska\File.cs" />
+        <Compile Include="TaglibSharp\Matroska\IUIDElement.cs" />
+        <Compile Include="TaglibSharp\Matroska\MatroskaIDs.cs" />
+        <Compile Include="TaglibSharp\Matroska\SimpleTag.cs" />
+        <Compile Include="TaglibSharp\Matroska\SubtitleTrack.cs" />
+        <Compile Include="TaglibSharp\Matroska\Tag.cs" />
+        <Compile Include="TaglibSharp\Matroska\Tags.cs" />
+        <Compile Include="TaglibSharp\Matroska\TargetType.cs" />
+        <Compile Include="TaglibSharp\Matroska\Track.cs" />
+        <Compile Include="TaglibSharp\Matroska\VideoTrack.cs" />
+        <Compile Include="TaglibSharp\Mpc\File.cs" />
+        <Compile Include="TaglibSharp\Mpc\StreamHeader.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\AppleTag.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Box.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\AppleAdditionalInfoBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\AppleAnnotationBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\AppleDataBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\AppleElementaryStreamDescriptor.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\AppleItemListBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\FullBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoAudioSampleEntry.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoChunkLargeOffsetBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoChunkOffsetBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoFreeSpaceBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoHandlerBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoMetaBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoMovieHeaderBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoSampleDescriptionBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoSampleEntry.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoSampleTableBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoUserDataBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\IsoVisualSampleEntry.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\TextBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\UnknownBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\Boxes\UrlBox.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\BoxFactory.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\BoxHeader.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\BoxTypes.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\File.cs" />
+        <Compile Include="TaglibSharp\Mpeg4\FileParser.cs" />
+        <Compile Include="TaglibSharp\Mpeg\AudioFile.cs" />
+        <Compile Include="TaglibSharp\Mpeg\AudioHeader.cs" />
+        <Compile Include="TaglibSharp\Mpeg\File.cs" />
+        <Compile Include="TaglibSharp\Mpeg\VBRIHeader.cs" />
+        <Compile Include="TaglibSharp\Mpeg\VideoHeader.cs" />
+        <Compile Include="TaglibSharp\Mpeg\XingHeader.cs" />
+        <Compile Include="TaglibSharp\NonContainer\EndTag.cs" />
+        <Compile Include="TaglibSharp\NonContainer\File.cs" />
+        <Compile Include="TaglibSharp\NonContainer\StartTag.cs" />
+        <Compile Include="TaglibSharp\NonContainer\Tag.cs" />
+        <Compile Include="TaglibSharp\Ogg\Bitstream.cs" />
+        <Compile Include="TaglibSharp\Ogg\Codec.cs" />
+        <Compile Include="TaglibSharp\Ogg\Codecs\Opus.cs" />
+        <Compile Include="TaglibSharp\Ogg\Codecs\Theora.cs" />
+        <Compile Include="TaglibSharp\Ogg\Codecs\Vorbis.cs" />
+        <Compile Include="TaglibSharp\Ogg\File.cs" />
+        <Compile Include="TaglibSharp\Ogg\GroupedComment.cs" />
+        <Compile Include="TaglibSharp\Ogg\Page.cs" />
+        <Compile Include="TaglibSharp\Ogg\PageHeader.cs" />
+        <Compile Include="TaglibSharp\Ogg\Paginator.cs" />
+        <Compile Include="TaglibSharp\Ogg\XiphComment.cs" />
+        <Compile Include="TaglibSharp\Picture.cs" />
+        <Compile Include="TaglibSharp\PictureLazy.cs" />
+        <Compile Include="TaglibSharp\Png\Codec.cs" />
+        <Compile Include="TaglibSharp\Png\File.cs" />
+        <Compile Include="TaglibSharp\Png\PngTag.cs" />
+        <Compile Include="TaglibSharp\Properties.cs" />
+        <Compile Include="TaglibSharp\ReadOnlyByteVector.cs" />
+        <Compile Include="TaglibSharp\Riff\AviHeaderList.cs" />
+        <Compile Include="TaglibSharp\Riff\AviStream.cs" />
+        <Compile Include="TaglibSharp\Riff\BitmapInfoHeader.cs" />
+        <Compile Include="TaglibSharp\Riff\DivXTag.cs" />
+        <Compile Include="TaglibSharp\Riff\File.cs" />
+        <Compile Include="TaglibSharp\Riff\InfoTag.cs" />
+        <Compile Include="TaglibSharp\Riff\List.cs" />
+        <Compile Include="TaglibSharp\Riff\ListTag.cs" />
+        <Compile Include="TaglibSharp\Riff\MovieIdTag.cs" />
+        <Compile Include="TaglibSharp\Riff\WaveFormatEx.cs" />
+        <Compile Include="TaglibSharp\StringList.cs" />
+        <Compile Include="TaglibSharp\SupportedMimeType.cs" />
+        <Compile Include="TaglibSharp\Tag.cs" />
+        <Compile Include="TaglibSharp\Tiff\Arw\File.cs" />
+        <Compile Include="TaglibSharp\Tiff\BaseTiffFile.cs" />
+        <Compile Include="TaglibSharp\Tiff\Codec.cs" />
+        <Compile Include="TaglibSharp\Tiff\Cr2\File.cs" />
+        <Compile Include="TaglibSharp\Tiff\Dng\File.cs" />
+        <Compile Include="TaglibSharp\Tiff\File.cs" />
+        <Compile Include="TaglibSharp\Tiff\Nef\File.cs" />
+        <Compile Include="TaglibSharp\Tiff\Pef\File.cs" />
+        <Compile Include="TaglibSharp\Tiff\Rw2\File.cs" />
+        <Compile Include="TaglibSharp\Tiff\Rw2\IFDReader.cs" />
+        <Compile Include="TaglibSharp\Tiff\Rw2\IFDTag.cs" />
+        <Compile Include="TaglibSharp\UnsupportedFormatException.cs" />
+        <Compile Include="TaglibSharp\WavPack\File.cs" />
+        <Compile Include="TaglibSharp\WavPack\StreamHeader.cs" />
+        <Compile Include="TaglibSharp\Xmp\XmlNodeExtensions.cs" />
+        <Compile Include="TaglibSharp\Xmp\XmpNode.cs" />
+        <Compile Include="TaglibSharp\Xmp\XmpNodeType.cs" />
+        <Compile Include="TaglibSharp\Xmp\XmpNodeVisitor.cs" />
+        <Compile Include="TaglibSharp\Xmp\XmpTag.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\TagLibSharp.dll" />
+      <EmbeddedResource Include="Resources\MediaPlayer.Android.bundle" />
+      <EmbeddedResource Include="Resources\MediaPlayer.bundle" />
+      <Content Include="TaglibSharp\TaglibSharp.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Reference Include="Assembly-CSharp">
+        <HintPath>References\Assembly-CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="AudioImportLib">
+        <HintPath>References\AudioImportLib.dll</HintPath>
+      </Reference>
+      <Reference Include="BoneLib">
+        <HintPath>References\BoneLib.dll</HintPath>
+      </Reference>
+      <Reference Include="Il2Cppmscorlib">
+        <HintPath>References\Il2Cppmscorlib.dll</HintPath>
+      </Reference>
+      <Reference Include="MelonLoader">
+        <HintPath>References\MelonLoader.dll</HintPath>
+      </Reference>
+      <Reference Include="System" />
+      <Reference Include="System.Xml" />
+      <Reference Include="UnhollowerBaseLib">
+        <HintPath>References\UnhollowerBaseLib.dll</HintPath>
+      </Reference>
+      <Reference Include="Unity.TextMeshPro">
+        <HintPath>References\Unity.TextMeshPro.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.AssetBundleModule">
+        <HintPath>References\UnityEngine.AssetBundleModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.AudioModule">
+        <HintPath>References\UnityEngine.AudioModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>References\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.ImageConversionModule">
+        <HintPath>References\UnityEngine.ImageConversionModule.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+</Project>
