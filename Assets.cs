@@ -22,14 +22,20 @@ namespace MediaPlayer
             if (Main.IsAndroid)
             {
                 var bundle = EmbeddedBundle.LoadFromAssembly(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.Android.bundle");
+                ModConsole.Msg($"Loaded Android bundle: {bundle.name}", LoggingMode.DEBUG);
                 Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/MediaPlayer.prefab");
+                ModConsole.Msg($"Loaded prefab: {Prefab.name}", LoggingMode.DEBUG);
                 DummyIcon = bundle.LoadPersistentAsset<Texture2D>("Assets/MediaPlayer/Texture2D/dummy.png");
+                ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", LoggingMode.DEBUG);
             }
             else
             {
                 var bundle = EmbeddedBundle.LoadFromAssembly(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.bundle");
+                ModConsole.Msg($"Loaded Windows bundle: {bundle.name}", LoggingMode.DEBUG);
                 Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/MediaPlayer.prefab");
+                ModConsole.Msg($"Loaded prefab: {Prefab.name}", LoggingMode.DEBUG);
                 DummyIcon = bundle.LoadPersistentAsset<Texture2D>("Assets/MediaPlayer/Texture2D/dummy.png");
+                ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", LoggingMode.DEBUG);
             }
             return  Prefab && DummyIcon != null;
         }
@@ -43,10 +49,12 @@ namespace MediaPlayer
         {
             if (!Directory.Exists(Main.CustomMusicDirectory))
             {
+                ModConsole.Msg("Creating custom music directory", LoggingMode.DEBUG);
                 Directory.CreateDirectory(Main.CustomMusicDirectory);
             }
             if (Directory.GetFiles(Main.CustomMusicDirectory).Length == 0)
             {
+                ModConsole.Msg("No audio files found, adding dummy audio", LoggingMode.DEBUG);
                 var file = EmbeddedResource.GetResourceBytes(Main.CurrAssembly, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3");
                 File.WriteAllBytes(Path.Combine(Main.CustomMusicDirectory, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3"), file);
             }
@@ -55,6 +63,7 @@ namespace MediaPlayer
             foreach (var clip in _filePaths.Select(filePath => AudioImportLib.API.LoadAudioClip(filePath)))
             {
                 AudioClips.Add(clip);
+                ModConsole.Msg($"Loaded audio clip: {clip.name}", LoggingMode.DEBUG);
             }
             
             return AudioClips != null;
@@ -88,22 +97,17 @@ namespace MediaPlayer
                 }
                 else
                 {
-                    MelonLogger.Error("Folder does not exist: " + folderPath);
+                    ModConsole.Error("Folder does not exist: " + folderPath);
                 }
             }
             catch (Exception e)
             {
-                MelonLogger.Error("Error while searching for files: " + e.Message);
+                ModConsole.Error("Error while searching for files: " + e.Message);
             }
 
             return filePaths;
         }
-        private static RenderTexture _renderTexture;
         
-        public static void SetupRenderTexture()
-        {
-            _renderTexture = new RenderTexture(336, 336, 0, RenderTextureFormat.ARGB32);
-        }
         public static Texture2D GrabCoverFromTags(int index)
         {
             var file = _filePaths[index];
@@ -111,7 +115,7 @@ namespace MediaPlayer
             var picture = tagLibFile.Tag.Pictures[0];
             if (picture == null)
             {
-                MelonLogger.Error($"{file}'s album art field is null!");
+                ModConsole.Error($"{file}'s album art field is null!");
                 return null;
             }
             var texture = new Texture2D(2, 2);
@@ -170,10 +174,12 @@ namespace MediaPlayer
             }
             if (!File.Exists(Main.DLLPath))
             {
+                ModConsole.Msg("Creating TagLibSharp.dll", LoggingMode.DEBUG);
                 File.WriteAllBytes(Main.DLLPath, EmbeddedResource.GetResourceBytes(Assembly.GetExecutingAssembly(), "TagLibSharp.dll"));
             }
             if (!_assemblyLoaded)
             {
+                ModConsole.Msg("Loading TagLibSharp.dll", LoggingMode.DEBUG);
                 LoadLibrary(Main.DLLPath);
                 _assemblyLoaded = true;
             }
@@ -184,6 +190,7 @@ namespace MediaPlayer
         {
             if (_assemblyLoaded)
             {
+                ModConsole.Msg("Unloading TagLibSharp.dll", LoggingMode.DEBUG);
                 FreeLibrary(LoadLibrary(Main.DLLPath));
                 _assemblyLoaded = false;
             }

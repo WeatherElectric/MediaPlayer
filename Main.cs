@@ -23,25 +23,25 @@ namespace MediaPlayer
 
         public static bool IsAndroid { get; private set; }
         public static Assembly CurrAssembly { get; private set; }
+        public static int CurrentClipIndex { get; set; }
 
         public override void OnInitializeMelon()
         {
             ModConsole.Setup(LoggerInstance);
             Preferences.Setup();
             IsAndroid = Application.platform == RuntimePlatform.Android;
-            Assets.SetupRenderTexture();
             CurrAssembly = Assembly.GetExecutingAssembly();
             if (!Assets.LoadBundle())
             {
-                MelonLogger.Error("Failed to load bundle!");
+                ModConsole.Error("Failed to load bundle!");
             }
             if (!Assets.LoadAudio())
             {
-                MelonLogger.Error("Failed to load audio! You likely don't have any audio in the folder!");
+                ModConsole.Error("Failed to load audio! You likely don't have any audio in the folder!");
             }
             if (!Assets.LoadAssembly() && !IsAndroid)
             {
-                MelonLogger.Error("Failed to load assembly!");
+                ModConsole.Error("Failed to load assembly!");
             }
             BoneMenu.CreateMenu();
         }

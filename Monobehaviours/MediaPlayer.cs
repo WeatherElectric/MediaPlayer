@@ -23,6 +23,7 @@ namespace MediaPlayer.Monobehaviours
 
         private void Start()
         {
+            _currentClipIndex = Main.CurrentClipIndex;
             _audioSource = gameObject.GetComponent<AudioSource>();
             _impactSfx = gameObject.GetComponent<ImpactSFX>();
             _audioSource.outputAudioMixerGroup = Audio.MusicMixer;
@@ -36,7 +37,8 @@ namespace MediaPlayer.Monobehaviours
             }
             PlayNextClip();
         }
-
+        
+        // Fun fact! This method doesn't work! It just skips the song! This is now a feature, despite it being a bug.
         public void PlayPause()
         {
             if (_audioSource.isPlaying)
@@ -72,6 +74,7 @@ namespace MediaPlayer.Monobehaviours
                 else
                 {
                     _currentClipIndex = 0;
+                    Main.CurrentClipIndex = _currentClipIndex;
                     PlayNextClip();
                 }
             }
@@ -95,11 +98,12 @@ namespace MediaPlayer.Monobehaviours
                     var title = Assets.GrabTitleFromTags(_currentClipIndex);
                     UpdateStatus(icon, author, title);
                     _currentClipIndex++;
+                    Main.CurrentClipIndex = _currentClipIndex;
                     if (!Preferences.NotificationsEnabled) return;
                     var notif = new Notification()
                     {
                         Title = "Now Playing:",
-                        Message = $"{author} - {title}",
+                        Message = $"{title}\n{author}",
                         Type = NotificationType.CustomIcon,
                         CustomIcon = icon,
                         IsPopup = true,
@@ -113,6 +117,7 @@ namespace MediaPlayer.Monobehaviours
                     var title = Assets.QuestGrabTitle(_currentClipIndex);
                     UpdateQuestStatus(title);
                     _currentClipIndex++;
+                    Main.CurrentClipIndex = _currentClipIndex;
                     if (!Preferences.NotificationsEnabled) return;
                     var notif = new Notification()
                     {

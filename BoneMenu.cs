@@ -7,14 +7,14 @@ namespace MediaPlayer
 {
     public static class BoneMenu
     {
-        public static bool NotificationsEnabled { get; set; }
+        private static bool NotificationsEnabled { get; set; }
         public static void CreateMenu()
         {
             NotificationsEnabled = Preferences.NotificationsEnabled;
-            var maincat = MenuManager.CreateCategory("MediaPlayer", Color.white);
-            maincat.CreateFunctionElement("Spawn MediaPlayer", Color.green, Spawn);
-            maincat.CreateFunctionElement("Despawn MediaPlayer", Color.red, Despawn);
-            maincat.CreateBoolElement("Show Notifications", Color.white, NotificationsEnabled, OnSetEnabled);
+            var maincat = MenuManager.CreateCategory("Media Player", Color.white);
+            maincat.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
+            maincat.CreateFunctionElement("Despawn Media Player", Color.red, Despawn);
+            maincat.CreateBoolElement("Show Playing Notifications", Color.white, NotificationsEnabled, OnSetEnabled);
         }
 
         private static void OnSetEnabled(bool value)
