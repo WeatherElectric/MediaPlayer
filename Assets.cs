@@ -18,7 +18,7 @@ namespace MediaPlayer
         public static Texture2D DummyIcon;
         public static bool LoadBundle()
         {
-            if (HelperMethods.IsAndroid())
+            if (Main.IsAndroid)
             {
                 var bundle = EmbeddedBundle.LoadFromAssembly(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.Android.bundle");
                 Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/MediaPlayer.prefab");
@@ -92,7 +92,12 @@ namespace MediaPlayer
 
             return filePaths;
         }
-
+        private static RenderTexture _renderTexture;
+        
+        public static void SetupRenderTexture()
+        {
+            _renderTexture = new RenderTexture(336, 336, 0, RenderTextureFormat.ARGB32);
+        }
         public static Texture2D GrabCoverFromTags(int index)
         {
             var file = _filePaths[index];
@@ -105,7 +110,6 @@ namespace MediaPlayer
             }
             var texture = new Texture2D(2, 2);
             ImageConversion.LoadImage(texture, picture.Data.Data, false);
-            texture.Resize(336, 336);
             return texture;
         }
         

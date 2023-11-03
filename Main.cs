@@ -2,6 +2,7 @@
 using BoneLib;
 using MediaPlayer.Melon;
 using MelonLoader;
+using UnityEngine;
 
 namespace MediaPlayer
 {
@@ -19,10 +20,14 @@ namespace MediaPlayer
         public static readonly string CustomMusicDirectory = Path.Combine(UserDataDirectory, "Custom Music");
         public static readonly string DLLPath = Path.Combine(MelonUtils.UserDataDirectory, "MediaPlayer", "TagLibSharp.dll");
 
+        public static bool IsAndroid { get; set; }
+
         public override void OnInitializeMelon()
         {
             ModConsole.Setup(LoggerInstance);
             Preferences.Setup();
+            IsAndroid = Application.platform == RuntimePlatform.Android;
+            Assets.SetupRenderTexture();
             if (!Assets.LoadBundle())
             {
                 MelonLogger.Error("Failed to load bundle!");
@@ -31,7 +36,7 @@ namespace MediaPlayer
             {
                 MelonLogger.Error("Failed to load audio! You likely don't have any audio in the folder!");
             }
-            if (!Assets.LoadAssembly() && !HelperMethods.IsAndroid())
+            if (!Assets.LoadAssembly() && !IsAndroid)
             {
                 MelonLogger.Error("Failed to load assembly!");
             }
