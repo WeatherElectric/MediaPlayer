@@ -101,11 +101,12 @@ namespace MediaPlayer.Monobehaviours
                         Title = "Now Playing:",
                         Message = $"{author} - {title}",
                         Type = NotificationType.CustomIcon,
+                        CustomIcon = icon,
                         IsPopup = true,
                         PopupLength = 3f,
                         ShowTitleOnPopup = true
                     };
-                    Notifier.Send(notif, icon);
+                    Notifier.Send(notif);
                 }
                 else
                 {
