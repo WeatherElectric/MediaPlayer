@@ -30,7 +30,7 @@ namespace MediaPlayer
         {
             if (_isSpawned) return;
             var player = Player.playerHead;
-            var location = player.position + player.forward * 5f;
+            var location = player.position + player.forward * 1f;
             _prefab = Object.Instantiate(Assets.Prefab, location, player.rotation);
             _isSpawned = true;
         }
