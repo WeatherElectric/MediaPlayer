@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using BoneLib;
 using UnityEngine;
 using BoneLib.AssetLoader;
+using MediaPlayer.Melon;
 using MelonLoader;
 
 namespace MediaPlayer
@@ -43,6 +44,11 @@ namespace MediaPlayer
             if (!Directory.Exists(Main.CustomMusicDirectory))
             {
                 Directory.CreateDirectory(Main.CustomMusicDirectory);
+            }
+            if (Directory.GetFiles(Main.CustomMusicDirectory).Length == 0)
+            {
+                var file = EmbeddedResource.GetResourceBytes(Main.CurrAssembly, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3");
+                File.WriteAllBytes(Path.Combine(Main.CustomMusicDirectory, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3"), file);
             }
             _filePaths = GetFilesInFolder(Main.CustomMusicDirectory);
             ShuffleAudio();

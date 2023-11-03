@@ -95,7 +95,7 @@ namespace MediaPlayer.Monobehaviours
                     var title = Assets.GrabTitleFromTags(_currentClipIndex);
                     UpdateStatus(icon, author, title);
                     _currentClipIndex++;
-                    if (!Preferences.notificationsEnabled) return;
+                    if (!Preferences.NotificationsEnabled) return;
                     var notif = new Notification()
                     {
                         Title = "Now Playing:",
@@ -103,7 +103,7 @@ namespace MediaPlayer.Monobehaviours
                         Type = NotificationType.CustomIcon,
                         CustomIcon = icon,
                         IsPopup = true,
-                        PopupLength = 3f,
+                        PopupLength = 2f,
                         ShowTitleOnPopup = true
                     };
                     Notifier.Send(notif);
@@ -113,14 +113,14 @@ namespace MediaPlayer.Monobehaviours
                     var title = Assets.QuestGrabTitle(_currentClipIndex);
                     UpdateQuestStatus(title);
                     _currentClipIndex++;
-                    if (!Preferences.notificationsEnabled) return;
+                    if (!Preferences.NotificationsEnabled) return;
                     var notif = new Notification()
                     {
                         Title = "Now Playing:",
                         Message = $"{title}",
                         Type = NotificationType.Information,
                         IsPopup = true,
-                        PopupLength = 3f,
+                        PopupLength = 2f,
                         ShowTitleOnPopup = true
                     };
                     Notifier.Send(notif);

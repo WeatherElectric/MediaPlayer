@@ -10,7 +10,7 @@ namespace MediaPlayer
         public static bool NotificationsEnabled { get; set; }
         public static void CreateMenu()
         {
-            NotificationsEnabled = Preferences.notificationsEnabled;
+            NotificationsEnabled = Preferences.NotificationsEnabled;
             var maincat = MenuManager.CreateCategory("MediaPlayer", Color.white);
             maincat.CreateFunctionElement("Spawn MediaPlayer", Color.green, Spawn);
             maincat.CreateFunctionElement("Despawn MediaPlayer", Color.red, Despawn);
@@ -20,8 +20,8 @@ namespace MediaPlayer
         private static void OnSetEnabled(bool value)
         {
             NotificationsEnabled = value;
-            Preferences.notificationsEnabled.entry.Value = value;
-            Preferences.category.SaveToFile(false);
+            Preferences.NotificationsEnabled.entry.Value = value;
+            Preferences.Category.SaveToFile(false);
         }
         
         private static bool _isSpawned;

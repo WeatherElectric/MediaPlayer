@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using BoneLib;
 using MediaPlayer.Melon;
 using MelonLoader;
@@ -20,7 +21,8 @@ namespace MediaPlayer
         public static readonly string CustomMusicDirectory = Path.Combine(UserDataDirectory, "Custom Music");
         public static readonly string DLLPath = Path.Combine(MelonUtils.UserDataDirectory, "MediaPlayer", "TagLibSharp.dll");
 
-        public static bool IsAndroid { get; set; }
+        public static bool IsAndroid { get; private set; }
+        public static Assembly CurrAssembly { get; private set; }
 
         public override void OnInitializeMelon()
         {
@@ -28,6 +30,7 @@ namespace MediaPlayer
             Preferences.Setup();
             IsAndroid = Application.platform == RuntimePlatform.Android;
             Assets.SetupRenderTexture();
+            CurrAssembly = Assembly.GetExecutingAssembly();
             if (!Assets.LoadBundle())
             {
                 MelonLogger.Error("Failed to load bundle!");

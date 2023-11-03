@@ -303,6 +303,7 @@
       <EmbeddedResource Include="Resources\TagLibSharp.dll" />
       <EmbeddedResource Include="Resources\MediaPlayer.Android.bundle" />
       <EmbeddedResource Include="Resources\MediaPlayer.bundle" />
+      <EmbeddedResource Include="Resources\Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3" />
       <Content Include="TaglibSharp\TaglibSharp.csproj" />
     </ItemGroup>
     <ItemGroup>
