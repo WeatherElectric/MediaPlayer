@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using BoneLib;
 using MediaPlayer.Melon;
 using MelonLoader;
 
@@ -7,12 +8,12 @@ namespace MediaPlayer
     // ReSharper disable once InconsistentNaming
     public class Main : MelonMod
     {
-        internal const string Name = "Media Player"; // Required
-        internal const string Description = "Better than Spotify!"; // Required
-        internal const string Author = "SoulWithMae"; // Required
-        internal const string Company = "Weather Electric"; // Set as null if blank
-        internal const string Version = "1.0.0"; // Required
-        internal const string DownloadLink = "null"; // Set as null if blank
+        internal const string Name = "Media Player";
+        internal const string Description = "Plays custom MP3 files in game";
+        internal const string Author = "SoulWithMae";
+        internal const string Company = "Weather Electric";
+        internal const string Version = "1.0.0";
+        internal const string DownloadLink = "null";
         
         public static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "MediaPlayer");
         public static readonly string CustomMusicDirectory = Path.Combine(UserDataDirectory, "Custom Music");
@@ -30,7 +31,7 @@ namespace MediaPlayer
             {
                 MelonLogger.Error("Failed to load audio! You likely don't have any audio in the folder!");
             }
-            if (!Assets.LoadAssembly())
+            if (!Assets.LoadAssembly() && !HelperMethods.IsAndroid())
             {
                 MelonLogger.Error("Failed to load assembly!");
             }

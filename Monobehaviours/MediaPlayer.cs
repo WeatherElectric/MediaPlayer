@@ -6,6 +6,7 @@ using MelonLoader;
 using SLZ.SFX;
 using TMPro;
 using UnityEngine;
+using Object = System.Object;
 
 namespace MediaPlayer.Monobehaviours
 {
@@ -29,6 +30,10 @@ namespace MediaPlayer.Monobehaviours
             _meshRenderer = gameObject.transform.Find("Metadata/AlbumArt").GetComponent<MeshRenderer>();
             _titleText = gameObject.transform.Find("Metadata/Title").GetComponent<TextMeshPro>();
             _authorText = gameObject.transform.Find("Metadata/Artist").GetComponent<TextMeshPro>();
+            if (HelperMethods.IsAndroid())
+            {
+                Destroy(_authorText.transform.gameObject);
+            }
             PlayNextClip();
         }
 
@@ -73,26 +78,47 @@ namespace MediaPlayer.Monobehaviours
             {
                 _audioSource.clip = Assets.AudioClips[_currentClipIndex];
                 _audioSource.Play();
-                var icon = Assets.GrabCoverFromTags(_currentClipIndex);
-                if (icon == null)
+                // It's all broken as hell on Quest. Avoid taglib on quest, give PC the cool shit.
+                if (!HelperMethods.IsAndroid())
                 {
-                    icon = Assets.DummyIcon;
+                    var icon = Assets.GrabCoverFromTags(_currentClipIndex);
+                    if (icon == null)
+                    {
+                        icon = Assets.DummyIcon;
+                    }
+                    var author = Assets.GrabAuthorFromTags(_currentClipIndex);
+                    var title = Assets.GrabTitleFromTags(_currentClipIndex);
+                    UpdateStatus(icon, author, title);
+                    _currentClipIndex++;
+                    if (!Preferences.notificationsEnabled) return;
+                    var notif = new Notification()
+                    {
+                        Title = "Now Playing:",
+                        Message = $"{author} - {title}",
+                        Type = NotificationType.CustomIcon,
+                        IsPopup = true,
+                        PopupLength = 3f,
+                        ShowTitleOnPopup = true
+                    };
+                    Notifier.Send(notif, icon);
                 }
-                var author = Assets.GrabAuthorFromTags(_currentClipIndex);
-                var title = Assets.GrabTitleFromTags(_currentClipIndex);
-                UpdateStatus(icon, author, title);
-                _currentClipIndex++;
-                if (!Preferences.notificationsEnabled) return;
-                var notif = new Notification()
+                else
                 {
-                    Title = "Now Playing:",
-                    Message = $"{author} - {title}",
-                    Type = NotificationType.CustomIcon,
-                    IsPopup = true,
-                    PopupLength = 3f,
-                    ShowTitleOnPopup = true
-                };
-                Notifier.Send(notif, icon);
+                    var title = Assets.QuestGrabTitle(_currentClipIndex);
+                    UpdateQuestStatus(title);
+                    _currentClipIndex++;
+                    if (!Preferences.notificationsEnabled) return;
+                    var notif = new Notification()
+                    {
+                        Title = "Now Playing:",
+                        Message = $"{title}",
+                        Type = NotificationType.Information,
+                        IsPopup = true,
+                        PopupLength = 3f,
+                        ShowTitleOnPopup = true
+                    };
+                    Notifier.Send(notif);
+                }
             }
         }
 
@@ -101,6 +127,12 @@ namespace MediaPlayer.Monobehaviours
             _meshRenderer.material.mainTexture = icon;
             _authorText.text = author;
             _titleText.text = title;
+        }
+
+        private void UpdateQuestStatus(string title)
+        {
+            _titleText.text = title;
+            _meshRenderer.material.mainTexture = Assets.DummyIcon;
         }
         
         public MediaPlayer(IntPtr ptr) : base(ptr) { }

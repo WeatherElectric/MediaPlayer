@@ -117,7 +117,7 @@ namespace MediaPlayer
             if (author == null)
             {
                 MelonLogger.Error($"{file}'s author field is null!");
-                return null;
+                return "";
             }
             return author;
         }
@@ -133,6 +133,13 @@ namespace MediaPlayer
                 var fileName = Path.GetFileName(file);
                 return fileName;
             }
+            return title;
+        }
+
+        public static string QuestGrabTitle(int index)
+        {
+            var file = _filePaths[index];
+            var title = Path.GetFileName(file);
             return title;
         }
         #endregion
