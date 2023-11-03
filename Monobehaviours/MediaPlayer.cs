@@ -6,7 +6,6 @@ using MelonLoader;
 using SLZ.SFX;
 using TMPro;
 using UnityEngine;
-using Object = System.Object;
 
 namespace MediaPlayer.Monobehaviours
 {

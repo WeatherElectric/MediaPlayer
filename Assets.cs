@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using BoneLib;
 using UnityEngine;
 using BoneLib.AssetLoader;
 using MediaPlayer.Melon;
@@ -119,6 +118,7 @@ namespace MediaPlayer
                 return null;
             }
             var texture = new Texture2D(2, 2);
+            // ReSharper disable once InvokeAsExtensionMethod, unhollowed unity extensions don't work well, have to call them directly
             ImageConversion.LoadImage(texture, picture.Data.Data, false);
             return texture;
         }

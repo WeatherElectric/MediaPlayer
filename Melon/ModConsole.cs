@@ -8,9 +8,9 @@ namespace MediaPlayer.Melon
         private static MelonLogger.Instance logger;
 
 
-        public static void Setup(MelonLogger.Instance logger)
+        public static void Setup(MelonLogger.Instance loggerInstance)
         {
-            ModConsole.logger = logger;
+            logger = loggerInstance;
         }
 
         public static void Msg(object obj, LoggingMode loggingMode = LoggingMode.NORMAL)
