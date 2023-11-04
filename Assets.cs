@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using BoneLib;
 using UnityEngine;
-using BoneLib.AssetLoader;
 using MediaPlayer.Melon;
 using MelonLoader;
 
@@ -20,7 +20,7 @@ namespace MediaPlayer
         {
             if (Main.IsAndroid)
             {
-                var bundle = EmbeddedBundle.LoadFromAssembly(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.Android.bundle");
+                var bundle = HelperMethods.LoadEmbeddedAssetBundle(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.Android.bundle");
                 ModConsole.Msg($"Loaded Android bundle: {bundle.name}", LoggingMode.DEBUG);
                 Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/MediaPlayer.prefab");
                 ModConsole.Msg($"Loaded prefab: {Prefab.name}", LoggingMode.DEBUG);
@@ -29,7 +29,7 @@ namespace MediaPlayer
             }
             else
             {
-                var bundle = EmbeddedBundle.LoadFromAssembly(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.bundle");
+                var bundle = HelperMethods.LoadEmbeddedAssetBundle(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.bundle");
                 ModConsole.Msg($"Loaded Windows bundle: {bundle.name}", LoggingMode.DEBUG);
                 Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/MediaPlayer.prefab");
                 ModConsole.Msg($"Loaded prefab: {Prefab.name}", LoggingMode.DEBUG);
@@ -54,7 +54,7 @@ namespace MediaPlayer
             if (Directory.GetFiles(Main.CustomMusicDirectory).Length == 0)
             {
                 ModConsole.Msg("No audio files found, adding dummy audio", LoggingMode.DEBUG);
-                var file = EmbeddedResource.GetResourceBytes(Main.CurrAssembly, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3");
+                var file = HelperMethods.GetResourceBytes(Main.CurrAssembly, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3");
                 File.WriteAllBytes(Path.Combine(Main.CustomMusicDirectory, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3"), file);
             }
             _filePaths = GetFilesInFolder(Main.CustomMusicDirectory);
@@ -175,7 +175,7 @@ namespace MediaPlayer
             if (!File.Exists(Main.DLLPath))
             {
                 ModConsole.Msg("Creating TagLibSharp.dll", LoggingMode.DEBUG);
-                File.WriteAllBytes(Main.DLLPath, EmbeddedResource.GetResourceBytes(Assembly.GetExecutingAssembly(), "TagLibSharp.dll"));
+                File.WriteAllBytes(Main.DLLPath, HelperMethods.GetResourceBytes(Assembly.GetExecutingAssembly(), "TagLibSharp.dll"));
             }
             if (!_assemblyLoaded)
             {
