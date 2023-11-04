@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using MediaPlayer.Melon;
 using MelonLoader;
+using SLZ.Marrow.Warehouse;
 using UnityEngine;
 
 namespace MediaPlayer
@@ -28,7 +30,6 @@ namespace MediaPlayer
         {
             ModConsole.Setup(LoggerInstance);
             Preferences.Setup();
-            IsAndroid = Application.platform == RuntimePlatform.Android;
             CurrAssembly = Assembly.GetExecutingAssembly();
             if (!Assets.LoadBundle())
             {
@@ -38,11 +39,24 @@ namespace MediaPlayer
             {
                 ModConsole.Error("Failed to load audio! You likely don't have any audio in the folder!");
             }
+            BoneMenu.CreateMenu();
+        }
+        
+        public override void OnSceneWasInitialized(int buildIndex, string sceneName)
+        {
+            if (sceneName.ToUpper().Contains("BOOTSTRAP"))
+            {
+                AssetWarehouse.OnReady(new Action(WarehouseReady));
+            }
+        }
+
+        private static void WarehouseReady()
+        {
+            IsAndroid = Application.platform == RuntimePlatform.Android;
             if (!Assets.LoadAssembly() && !IsAndroid)
             {
                 ModConsole.Error("Failed to load assembly!");
             }
-            BoneMenu.CreateMenu();
         }
 
         public override void OnApplicationQuit()

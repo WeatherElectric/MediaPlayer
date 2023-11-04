@@ -322,6 +322,12 @@
       <Reference Include="MelonLoader">
         <HintPath>References\MelonLoader.dll</HintPath>
       </Reference>
+      <Reference Include="SLZ.Marrow">
+        <HintPath>References\SLZ.Marrow.dll</HintPath>
+      </Reference>
+      <Reference Include="SLZ.Marrow.SDK">
+        <HintPath>References\SLZ.Marrow.SDK.dll</HintPath>
+      </Reference>
       <Reference Include="System" />
       <Reference Include="System.Xml" />
       <Reference Include="UnhollowerBaseLib">
