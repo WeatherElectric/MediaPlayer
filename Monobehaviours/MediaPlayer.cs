@@ -105,7 +105,6 @@ namespace MediaPlayer.Monobehaviours
                         Message = $"{title}\n{author}",
                         Type = NotificationType.CustomIcon,
                         CustomIcon = icon,
-                        IsPopup = true,
                         PopupLength = 2f,
                         ShowTitleOnPopup = true
                     };
@@ -123,7 +122,6 @@ namespace MediaPlayer.Monobehaviours
                         Title = "Now Playing:",
                         Message = $"{title}",
                         Type = NotificationType.Information,
-                        IsPopup = true,
                         PopupLength = 2f,
                         ShowTitleOnPopup = true
                     };
