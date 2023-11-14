@@ -18,9 +18,9 @@ namespace MediaPlayer
         internal const string Version = "1.0.0";
         internal const string DownloadLink = "null";
         
-        public static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "MediaPlayer");
+        public static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "Weather Electric/MediaPlayer");
         public static readonly string CustomMusicDirectory = Path.Combine(UserDataDirectory, "Custom Music");
-        public static readonly string DLLPath = Path.Combine(MelonUtils.UserDataDirectory, "MediaPlayer", "TagLibSharp.dll");
+        public static readonly string DLLPath = Path.Combine(UserDataDirectory, "TagLibSharp.dll");
 
         public static bool IsAndroid { get; private set; }
         public static Assembly CurrAssembly { get; private set; }
