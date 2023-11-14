@@ -1,5 +1,6 @@
 ﻿using BoneLib;
 using BoneLib.BoneMenu;
+using BoneLib.BoneMenu.Elements;
 using MediaPlayer.Melon;
 using UnityEngine;
 
@@ -11,10 +12,11 @@ namespace MediaPlayer
         public static void CreateMenu()
         {
             NotificationsEnabled = Preferences.NotificationsEnabled;
-            var maincat = MenuManager.CreateCategory("Media Player", Color.white);
-            maincat.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
-            maincat.CreateFunctionElement("Despawn Media Player", Color.red, Despawn);
-            maincat.CreateBoolElement("Show Playing Notifications", Color.white, NotificationsEnabled, OnSetEnabled);
+            MenuCategory mainCat = MenuManager.CreateCategory("Weather Electric", "6FBDFF");
+            MenuCategory menuCategory = mainCat.CreateCategory("Media Player", Color.white);
+            menuCategory.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
+            menuCategory.CreateFunctionElement("Despawn Media Player", Color.red, Despawn);
+            menuCategory.CreateBoolElement("Show Playing Notifications", Color.white, NotificationsEnabled, OnSetEnabled);
         }
 
         private static void OnSetEnabled(bool value)
