@@ -23,7 +23,7 @@ namespace MediaPlayer
                 using Stream str = assembly.GetManifestResourceStream(name);
                 using MemoryStream memoryStream = new MemoryStream();
 
-                str.CopyTo(memoryStream);
+                str?.CopyTo(memoryStream);
                 ModConsole.Msg("Done!", 1);
                 byte[] resource = memoryStream.ToArray();
 
@@ -37,9 +37,9 @@ namespace MediaPlayer
         /// <summary>
         /// Loads an asset from an assetbundle
         /// </summary>
-        public static T LoadPersistentAsset<T>(this AssetBundle assetBundle, string name) where T : UnityEngine.Object
+        public static T LoadPersistentAsset<T>(this AssetBundle assetBundle, string name) where T : Object
         {
-            UnityEngine.Object asset = assetBundle.LoadAsset(name);
+            Object asset = assetBundle.LoadAsset(name);
 
             if (asset != null)
             {
@@ -59,13 +59,11 @@ namespace MediaPlayer
             {
                 if (resource.Contains(name))
                 {
-                    using (Stream resFilestream = assembly.GetManifestResourceStream(resource))
-                    {
-                        if (resFilestream == null) return null;
-                        byte[] byteArr = new byte[resFilestream.Length];
-                        resFilestream.Read(byteArr, 0, byteArr.Length);
-                        return byteArr;
-                    }
+                    using Stream resFilestream = assembly.GetManifestResourceStream(resource);
+                    if (resFilestream == null) return null;
+                    byte[] byteArr = new byte[resFilestream.Length];
+                    var unused = resFilestream.Read(byteArr, 0, byteArr.Length);
+                    return byteArr;
                 }
             }
             return null;
