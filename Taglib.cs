@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using MediaPlayer.Melon;
-using MelonLoader;
-using TagLib;
 using UnityEngine;
 
 namespace MediaPlayer

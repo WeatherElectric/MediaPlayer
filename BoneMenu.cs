@@ -12,7 +12,7 @@ namespace MediaPlayer
         public static void CreateMenu()
         {
             NotificationsEnabled = Preferences.NotificationsEnabled;
-            MenuCategory mainCat = MenuManager.CreateCategory("Weather Electric", "6FBDFF");
+            MenuCategory mainCat = MenuManager.CreateCategory("Weather Electric", "#6FBDFF");
             MenuCategory menuCategory = mainCat.CreateCategory("Media Player", Color.white);
             menuCategory.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
             menuCategory.CreateFunctionElement("Despawn Media Player", Color.red, Despawn);

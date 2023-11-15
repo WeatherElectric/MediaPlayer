@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 using BoneLib;
 using UnityEngine;
 using MediaPlayer.Melon;
-using MelonLoader;
 
 namespace MediaPlayer
 {
@@ -81,7 +80,7 @@ namespace MediaPlayer
         
         private static List<string> GetFilesInFolder(string folderPath)
         {
-            List<string> filePaths = new List<string>();
+            var filePaths = new List<string>();
 
             try
             {
