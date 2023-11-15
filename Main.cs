@@ -32,6 +32,7 @@ namespace MediaPlayer
 #if DEBUG
             ModConsole.Warning("This is a debug build! Expect bugs!");
 #endif
+            if (BoneLib.HelperMethods.IsAndroid()) ModConsole.Warning("You are on Quest! You will not get album art or any metadata!");
             CurrAssembly = Assembly.GetExecutingAssembly();
             if (!Assets.LoadBundle())
             {
