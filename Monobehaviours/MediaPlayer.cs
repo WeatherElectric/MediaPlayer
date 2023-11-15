@@ -4,6 +4,7 @@ using BoneLib.Notifications;
 using MediaPlayer.Melon;
 using MelonLoader;
 using SLZ.SFX;
+using TagLib;
 using TMPro;
 using UnityEngine;
 
@@ -88,13 +89,13 @@ namespace MediaPlayer.Monobehaviours
                 // It's all broken as hell on Quest. Avoid taglib on quest, give PC the cool shit.
                 if (!Main.IsAndroid)
                 {
-                    var icon = Assets.GrabCoverFromTags(_currentClipIndex);
+                    var icon = Taglib.GetCover(_currentClipIndex);
                     if (icon == null)
                     {
                         icon = Assets.DummyIcon;
                     }
-                    var author = Assets.GrabAuthorFromTags(_currentClipIndex);
-                    var title = Assets.GrabTitleFromTags(_currentClipIndex);
+                    var author = Taglib.GetTag(_currentClipIndex, Taglib.Tag.Artist);
+                    var title = Taglib.GetTag(_currentClipIndex, Taglib.Tag.Title);
                     UpdateStatus(icon, author, title);
                     _currentClipIndex++;
                     Main.CurrentClipIndex = _currentClipIndex;
@@ -112,7 +113,7 @@ namespace MediaPlayer.Monobehaviours
                 }
                 else
                 {
-                    var title = Assets.QuestGrabTitle(_currentClipIndex);
+                    var title = Taglib.GetFilename(_currentClipIndex);
                     UpdateQuestStatus(title);
                     _currentClipIndex++;
                     Main.CurrentClipIndex = _currentClipIndex;

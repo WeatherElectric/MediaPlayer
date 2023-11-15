@@ -42,7 +42,7 @@ namespace MediaPlayer
         #region Audio
         public static readonly List<AudioClip> AudioClips = new List<AudioClip>();
         
-        private static List<string> _filePaths = new List<string>();
+        public static List<string> FilePaths = new List<string>();
         
         public static bool LoadAudio()
         {
@@ -57,9 +57,9 @@ namespace MediaPlayer
                 var file = HelperMethods.GetResourceBytes(Main.CurrAssembly, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3");
                 File.WriteAllBytes(Path.Combine(Main.CustomMusicDirectory, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3"), file);
             }
-            _filePaths = GetFilesInFolder(Main.CustomMusicDirectory);
+            FilePaths = GetFilesInFolder(Main.CustomMusicDirectory);
             ShuffleAudio();
-            foreach (var clip in _filePaths.Select(filePath => AudioImportLib.API.LoadAudioClip(filePath)))
+            foreach (var clip in FilePaths.Select(filePath => AudioImportLib.API.LoadAudioClip(filePath)))
             {
                 AudioClips.Add(clip);
                 ModConsole.Msg($"Loaded audio clip: {clip.name}", LoggingMode.DEBUG);
@@ -70,12 +70,12 @@ namespace MediaPlayer
         
         private static void ShuffleAudio()
         {
-            int n = _filePaths.Count;
+            int n = FilePaths.Count;
             while (n > 1)
             {
                 n--;
                 int k = UnityEngine.Random.Range(0, n + 1);
-                (_filePaths[k], _filePaths[n]) = (_filePaths[n], _filePaths[k]);
+                (FilePaths[k], FilePaths[n]) = (FilePaths[n], FilePaths[k]);
             }
         }
         
@@ -107,55 +107,6 @@ namespace MediaPlayer
             return filePaths;
         }
         
-        public static Texture2D GrabCoverFromTags(int index)
-        {
-            var file = _filePaths[index];
-            var tagLibFile = TagLib.File.Create(file);
-            var picture = tagLibFile.Tag.Pictures[0];
-            if (picture == null)
-            {
-                ModConsole.Error($"{file}'s album art field is null!");
-                return null;
-            }
-            var texture = new Texture2D(2, 2);
-            // ReSharper disable once InvokeAsExtensionMethod, unhollowed unity extensions don't work well, have to call them directly
-            ImageConversion.LoadImage(texture, picture.Data.Data, false);
-            return texture;
-        }
-        
-        public static string GrabAuthorFromTags(int index)
-        {
-            var file = _filePaths[index];
-            var tagLibFile = TagLib.File.Create(file);
-            var author = tagLibFile.Tag.FirstPerformer;
-            if (author == null)
-            {
-                MelonLogger.Error($"{file}'s author field is null!");
-                return "";
-            }
-            return author;
-        }
-        
-        public static string GrabTitleFromTags(int index)
-        {
-            var file = _filePaths[index];
-            var tagLibFile = TagLib.File.Create(file);
-            var title = tagLibFile.Tag.Title;
-            if (title == null)
-            {
-                MelonLogger.Error($"{file}'s title field is null! Falling back to filename.");
-                var fileName = Path.GetFileName(file);
-                return fileName;
-            }
-            return title;
-        }
-
-        public static string QuestGrabTitle(int index)
-        {
-            var file = _filePaths[index];
-            var title = Path.GetFileName(file);
-            return title;
-        }
         #endregion
         #region Assembly
         private static bool _assemblyLoaded;
