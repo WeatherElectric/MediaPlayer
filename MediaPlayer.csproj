@@ -12,7 +12,7 @@
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <Deterministic>true</Deterministic>
-        <LangVersion>8</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +32,12 @@
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Prerelease|AnyCPU' ">
+      <OutputPath>bin\Prerelease\</OutputPath>
+      <DefineConstants>PRERELEASE;DEBUG;TRACE</DefineConstants>
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>full</DebugType>
     </PropertyGroup>
     <PropertyGroup>
         <StartupObject/>
@@ -299,6 +305,8 @@
         <Compile Include="TaglibSharp\Xmp\XmpNodeType.cs" />
         <Compile Include="TaglibSharp\Xmp\XmpNodeVisitor.cs" />
         <Compile Include="TaglibSharp\Xmp\XmpTag.cs" />
+        <Compile Include="Temporary\AssetLoader.cs" />
+        <Compile Include="Temporary\Notifications.cs" />
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Include="Resources\TagLibSharp.dll" />

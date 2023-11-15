@@ -4,7 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using BoneLib;
+#if PRERELEASE
+using HelperMethods = MediaPlayer;
+#else
+using HelperMethods = BoneLib;
+#endif
 using UnityEngine;
 using MediaPlayer.Melon;
 

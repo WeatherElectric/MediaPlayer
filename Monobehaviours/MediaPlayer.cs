@@ -1,10 +1,13 @@
 ﻿using System;
 using BoneLib;
+#if PRERELEASE
+using MediaPlayer.Notifications;
+#else
 using BoneLib.Notifications;
+#endif
 using MediaPlayer.Melon;
 using MelonLoader;
 using SLZ.SFX;
-using TagLib;
 using TMPro;
 using UnityEngine;
 
