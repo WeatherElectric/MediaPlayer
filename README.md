@@ -22,4 +22,4 @@ A media player for BONELAB
 ![image](https://github.com/WeatherElectric/MediaPlayer/assets/30084485/1f8ed712-3326-462d-945a-d9df1ffd93f6)
 * Hit "OK"
 ### Installation
-* Place your MP3 files into UserData/MediaPlayer/Custom Music
+* Place your MP3 files into UserData/Weather Electric/MediaPlayer/Custom Music
