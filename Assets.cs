@@ -20,20 +20,20 @@ namespace MediaPlayer
             if (Main.IsAndroid)
             {
                 var bundle = HelperMethods.LoadEmbeddedAssetBundle(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.Android.bundle");
-                ModConsole.Msg($"Loaded Android bundle: {bundle.name}", LoggingMode.DEBUG);
+                ModConsole.Msg($"Loaded Android bundle: {bundle.name}", 1);
                 Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/MediaPlayer.prefab");
-                ModConsole.Msg($"Loaded prefab: {Prefab.name}", LoggingMode.DEBUG);
+                ModConsole.Msg($"Loaded prefab: {Prefab.name}", 1);
                 DummyIcon = bundle.LoadPersistentAsset<Texture2D>("Assets/MediaPlayer/Texture2D/dummy.png");
-                ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", LoggingMode.DEBUG);
+                ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", 1);
             }
             else
             {
                 var bundle = HelperMethods.LoadEmbeddedAssetBundle(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.bundle");
-                ModConsole.Msg($"Loaded Windows bundle: {bundle.name}", LoggingMode.DEBUG);
+                ModConsole.Msg($"Loaded Windows bundle: {bundle.name}", 1);
                 Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/MediaPlayer.prefab");
-                ModConsole.Msg($"Loaded prefab: {Prefab.name}", LoggingMode.DEBUG);
+                ModConsole.Msg($"Loaded prefab: {Prefab.name}", 1);
                 DummyIcon = bundle.LoadPersistentAsset<Texture2D>("Assets/MediaPlayer/Texture2D/dummy.png");
-                ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", LoggingMode.DEBUG);
+                ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", 1);
             }
             return  Prefab && DummyIcon != null;
         }
@@ -47,12 +47,12 @@ namespace MediaPlayer
         {
             if (!Directory.Exists(Main.CustomMusicDirectory))
             {
-                ModConsole.Msg("Creating custom music directory", LoggingMode.DEBUG);
+                ModConsole.Msg("Creating custom music directory", 1);
                 Directory.CreateDirectory(Main.CustomMusicDirectory);
             }
             if (Directory.GetFiles(Main.CustomMusicDirectory).Length == 0)
             {
-                ModConsole.Msg("No audio files found, adding dummy audio", LoggingMode.DEBUG);
+                ModConsole.Msg("No audio files found, adding dummy audio", 1);
                 var file = HelperMethods.GetResourceBytes(Main.CurrAssembly, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3");
                 File.WriteAllBytes(Path.Combine(Main.CustomMusicDirectory, "Michael Wyckoff - Pick It Up (Ima Say Ma Namowa).mp3"), file);
             }
@@ -61,7 +61,7 @@ namespace MediaPlayer
             foreach (var clip in FilePaths.Select(filePath => AudioImportLib.API.LoadAudioClip(filePath)))
             {
                 AudioClips.Add(clip);
-                ModConsole.Msg($"Loaded audio clip: {clip.name}", LoggingMode.DEBUG);
+                ModConsole.Msg($"Loaded audio clip: {clip.name}", 1);
             }
             
             return AudioClips != null;
@@ -124,12 +124,12 @@ namespace MediaPlayer
             }
             if (!File.Exists(Main.DLLPath))
             {
-                ModConsole.Msg("Creating TagLibSharp.dll", LoggingMode.DEBUG);
+                ModConsole.Msg("Creating TagLibSharp.dll", 1);
                 File.WriteAllBytes(Main.DLLPath, HelperMethods.GetResourceBytes(Assembly.GetExecutingAssembly(), "TagLibSharp.dll"));
             }
             if (!_assemblyLoaded)
             {
-                ModConsole.Msg("Loading TagLibSharp.dll", LoggingMode.DEBUG);
+                ModConsole.Msg("Loading TagLibSharp.dll", 1);
                 LoadLibrary(Main.DLLPath);
                 _assemblyLoaded = true;
             }
@@ -140,7 +140,7 @@ namespace MediaPlayer
         {
             if (_assemblyLoaded)
             {
-                ModConsole.Msg("Unloading TagLibSharp.dll", LoggingMode.DEBUG);
+                ModConsole.Msg("Unloading TagLibSharp.dll", 1);
                 FreeLibrary(LoadLibrary(Main.DLLPath));
                 _assemblyLoaded = false;
             }

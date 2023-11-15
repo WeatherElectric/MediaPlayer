@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MediaPlayer
 {
-    public static class Taglib
+    public static class TaglibBL
     {
         public enum Tag
         {

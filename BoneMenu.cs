@@ -11,7 +11,7 @@ namespace MediaPlayer
         private static bool NotificationsEnabled { get; set; }
         public static void CreateMenu()
         {
-            NotificationsEnabled = Preferences.NotificationsEnabled;
+            NotificationsEnabled = Preferences.NotificationsEnabled.Value;
             MenuCategory mainCat = MenuManager.CreateCategory("Weather Electric", "#6FBDFF");
             MenuCategory menuCategory = mainCat.CreateCategory("Media Player", Color.white);
             menuCategory.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
@@ -22,8 +22,8 @@ namespace MediaPlayer
         private static void OnSetEnabled(bool value)
         {
             NotificationsEnabled = value;
-            Preferences.NotificationsEnabled.entry.Value = value;
-            Preferences.Category.SaveToFile(false);
+            Preferences.NotificationsEnabled.Value = value;
+            Preferences.OwnCategory.SaveToFile(false);
         }
         
         private static bool _isSpawned;

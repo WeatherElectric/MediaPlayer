@@ -89,17 +89,17 @@ namespace MediaPlayer.Monobehaviours
                 // It's all broken as hell on Quest. Avoid taglib on quest, give PC the cool shit.
                 if (!Main.IsAndroid)
                 {
-                    var icon = Taglib.GetCover(_currentClipIndex);
+                    var icon = TaglibBL.GetCover(_currentClipIndex);
                     if (icon == null)
                     {
                         icon = Assets.DummyIcon;
                     }
-                    var author = Taglib.GetTag(_currentClipIndex, Taglib.Tag.Artist);
-                    var title = Taglib.GetTag(_currentClipIndex, Taglib.Tag.Title);
+                    var author = TaglibBL.GetTag(_currentClipIndex, TaglibBL.Tag.Artist);
+                    var title = TaglibBL.GetTag(_currentClipIndex, TaglibBL.Tag.Title);
                     UpdateStatus(icon, author, title);
                     _currentClipIndex++;
                     Main.CurrentClipIndex = _currentClipIndex;
-                    if (!Preferences.NotificationsEnabled) return;
+                    if (!Preferences.NotificationsEnabled.Value) return;
                     var notif = new Notification()
                     {
                         Title = "Now Playing:",
@@ -113,11 +113,11 @@ namespace MediaPlayer.Monobehaviours
                 }
                 else
                 {
-                    var title = Taglib.GetFilename(_currentClipIndex);
+                    var title = TaglibBL.GetFilename(_currentClipIndex);
                     UpdateQuestStatus(title);
                     _currentClipIndex++;
                     Main.CurrentClipIndex = _currentClipIndex;
-                    if (!Preferences.NotificationsEnabled) return;
+                    if (!Preferences.NotificationsEnabled.Value) return;
                     var notif = new Notification()
                     {
                         Title = "Now Playing:",
