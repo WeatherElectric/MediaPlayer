@@ -34,7 +34,7 @@ namespace MediaPlayer.Monobehaviours
             _meshRenderer = gameObject.transform.Find("Metadata/AlbumArt").GetComponent<MeshRenderer>();
             _titleText = gameObject.transform.Find("Metadata/Title").GetComponent<TextMeshPro>();
             _authorText = gameObject.transform.Find("Metadata/Artist").GetComponent<TextMeshPro>();
-            if (Main.IsAndroid)
+            if (BoneLib.HelperMethods.IsAndroid())
             {
                 Destroy(_authorText.transform.gameObject);
             }
@@ -89,8 +89,8 @@ namespace MediaPlayer.Monobehaviours
             {
                 _audioSource.clip = Assets.AudioClips[_currentClipIndex];
                 _audioSource.Play();
-                // It's all broken as hell on Quest. Avoid taglib on quest, give PC the cool shit.
-                if (!Main.IsAndroid)
+                //It's all broken as hell on Quest. Avoid taglib on quest, give PC the cool shit.
+                if (BoneLib.HelperMethods.IsAndroid())
                 {
                     var icon = TaglibBL.GetCover(_currentClipIndex);
                     if (icon == null)

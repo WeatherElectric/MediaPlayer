@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 #if PRERELEASE
 using HelperMethods = MediaPlayer;
 #else
-using HelperMethods = BoneLib;
+using BoneLib;
 #endif
 using UnityEngine;
 using MediaPlayer.Melon;
@@ -21,7 +21,7 @@ namespace MediaPlayer
         public static Texture2D DummyIcon;
         public static bool LoadBundle()
         {
-            if (Main.IsAndroid)
+            if (BoneLib.HelperMethods.IsAndroid())
             {
                 var bundle = HelperMethods.LoadEmbeddedAssetBundle(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.Android.bundle");
                 ModConsole.Msg($"Loaded Android bundle: {bundle.name}", 1);
@@ -119,6 +119,8 @@ namespace MediaPlayer
 
         [DllImport("kernel32.dll")]
         private static extern bool FreeLibrary(IntPtr hModule);
+
+        private static IntPtr _lib;
         
         public static bool LoadAssembly()
         {
@@ -129,13 +131,12 @@ namespace MediaPlayer
             if (!File.Exists(Main.DLLPath))
             {
                 ModConsole.Msg("Creating TagLibSharp.dll", 1);
-                File.WriteAllBytes(Main.DLLPath, HelperMethods.GetResourceBytes(Assembly.GetExecutingAssembly(), "TagLibSharp.dll"));
             }
             if (!_assemblyLoaded)
             {
                 ModConsole.Msg("Loading TagLibSharp.dll", 1);
-                LoadLibrary(Main.DLLPath);
-                _assemblyLoaded = true;
+                _lib = LoadLibrary(Main.DLLPath);
+                _assemblyLoaded = _lib != null;
             }
             return _assemblyLoaded;
         }
@@ -145,7 +146,7 @@ namespace MediaPlayer
             if (_assemblyLoaded)
             {
                 ModConsole.Msg("Unloading TagLibSharp.dll", 1);
-                FreeLibrary(LoadLibrary(Main.DLLPath));
+                FreeLibrary(_lib);
                 _assemblyLoaded = false;
             }
         }

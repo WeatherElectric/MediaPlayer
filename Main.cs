@@ -4,7 +4,7 @@ using System.Reflection;
 using MediaPlayer.Melon;
 using MelonLoader;
 using SLZ.Marrow.Warehouse;
-using UnityEngine;
+using HelperMethods = BoneLib;
 
 namespace MediaPlayer
 {
@@ -15,14 +15,13 @@ namespace MediaPlayer
         internal const string Description = "Plays custom MP3 files in game";
         internal const string Author = "SoulWithMae";
         internal const string Company = "Weather Electric";
-        internal const string Version = "0.0.1";
+        internal const string Version = "0.0.2";
         internal const string DownloadLink = "null";
         
         public static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "Weather Electric/MediaPlayer");
         public static readonly string CustomMusicDirectory = Path.Combine(UserDataDirectory, "Custom Music");
         public static readonly string DLLPath = Path.Combine(UserDataDirectory, "TagLibSharp.dll");
-
-        public static bool IsAndroid { get; private set; }
+        
         public static Assembly CurrAssembly { get; private set; }
         public static int CurrentClipIndex { get; set; }
 
@@ -56,8 +55,8 @@ namespace MediaPlayer
 
         private static void WarehouseReady()
         {
-            IsAndroid = Application.platform == RuntimePlatform.Android;
-            if (!Assets.LoadAssembly() && !IsAndroid)
+            if (BoneLib.HelperMethods.IsAndroid()) return;
+            if (!Assets.LoadAssembly())
             {
                 ModConsole.Error("Failed to load assembly!");
             }
@@ -65,6 +64,7 @@ namespace MediaPlayer
 
         public override void OnApplicationQuit()
         {
+            if (BoneLib.HelperMethods.IsAndroid()) return;
             Assets.UnloadAssembly();
         }
     }
