@@ -8,21 +8,26 @@ namespace MediaPlayer
 {
     public static class BoneMenu
     {
-        private static bool NotificationsEnabled { get; set; }
         public static void CreateMenu()
         {
-            NotificationsEnabled = Preferences.NotificationsEnabled.Value;
+            
             MenuCategory mainCat = MenuManager.CreateCategory("Weather Electric", "#6FBDFF");
             MenuCategory menuCategory = mainCat.CreateCategory("Media Player", Color.white);
             menuCategory.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
             menuCategory.CreateFunctionElement("Despawn Media Player", Color.red, Despawn);
-            menuCategory.CreateBoolElement("Show Playing Notifications", Color.white, NotificationsEnabled, OnSetEnabled);
+            menuCategory.CreateBoolElement("Show Playing Notifications", Color.white, Preferences.NotificationsEnabled.Value, OnBoolUpdate);
+            menuCategory.CreateFloatElement("Notification Duration", Color.white, 2f, 0.1f, 0.5f, 5f, OnFloatUpdate);
         }
 
-        private static void OnSetEnabled(bool value)
+        private static void OnBoolUpdate(bool value)
         {
-            NotificationsEnabled = value;
             Preferences.NotificationsEnabled.Value = value;
+            Preferences.OwnCategory.SaveToFile(false);
+        }
+
+        private static void OnFloatUpdate(float value)
+        {
+            Preferences.NotificationDuration.Value = value;
             Preferences.OwnCategory.SaveToFile(false);
         }
         
