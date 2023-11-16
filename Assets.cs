@@ -25,18 +25,18 @@ namespace MediaPlayer
             {
                 var bundle = HelperMethods.LoadEmbeddedAssetBundle(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.Android.bundle");
                 ModConsole.Msg($"Loaded Android bundle: {bundle.name}", 1);
-                Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/MediaPlayer.prefab");
+                Prefab = bundle.LoadPersistentAsset<GameObject>("Thingy");
                 ModConsole.Msg($"Loaded prefab: {Prefab.name}", 1);
-                DummyIcon = bundle.LoadPersistentAsset<Texture2D>("Assets/MediaPlayer/Texture2D/dummy.png");
+                DummyIcon = bundle.LoadPersistentAsset<Texture2D>("dumbass");
                 ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", 1);
             }
             else
             {
                 var bundle = HelperMethods.LoadEmbeddedAssetBundle(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.bundle");
                 ModConsole.Msg($"Loaded Windows bundle: {bundle.name}", 1);
-                Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/MediaPlayer.prefab");
+                Prefab = bundle.LoadPersistentAsset<GameObject>("Thingy");
                 ModConsole.Msg($"Loaded prefab: {Prefab.name}", 1);
-                DummyIcon = bundle.LoadPersistentAsset<Texture2D>("Assets/MediaPlayer/Texture2D/dummy.png");
+                DummyIcon = bundle.LoadPersistentAsset<Texture2D>("dumbass");
                 ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", 1);
             }
             return  Prefab && DummyIcon != null;

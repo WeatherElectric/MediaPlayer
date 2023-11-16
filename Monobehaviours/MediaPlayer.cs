@@ -21,6 +21,7 @@ namespace MediaPlayer.Monobehaviours
         private MeshRenderer _meshRenderer;
         private TextMeshPro _titleText;
         private TextMeshPro _authorText;
+        private TextMeshPro _yearText;
         private int _currentClipIndex;
         private float _pauseTime;
 
@@ -34,6 +35,7 @@ namespace MediaPlayer.Monobehaviours
             _meshRenderer = gameObject.transform.Find("Metadata/AlbumArt").GetComponent<MeshRenderer>();
             _titleText = gameObject.transform.Find("Metadata/Title").GetComponent<TextMeshPro>();
             _authorText = gameObject.transform.Find("Metadata/Artist").GetComponent<TextMeshPro>();
+            _yearText = gameObject.transform.Find("Metadata/Year").GetComponent<TextMeshPro>();
             if (BoneLib.HelperMethods.IsAndroid())
             {
                 Destroy(_authorText.transform.gameObject);
@@ -99,7 +101,8 @@ namespace MediaPlayer.Monobehaviours
                     }
                     var author = TaglibBL.GetTag(_currentClipIndex, TaglibBL.Tag.Artist);
                     var title = TaglibBL.GetTag(_currentClipIndex, TaglibBL.Tag.Title);
-                    UpdateStatus(icon, author, title);
+                    var year = TaglibBL.GetTag(_currentClipIndex, TaglibBL.Tag.Year);
+                    UpdateStatus(icon, author, title, year);
                     _currentClipIndex++;
                     Main.CurrentClipIndex = _currentClipIndex;
                     if (!Preferences.NotificationsEnabled.Value) return;
@@ -134,11 +137,12 @@ namespace MediaPlayer.Monobehaviours
             }
         }
 
-        private void UpdateStatus(Texture icon, string author, string title)
+        private void UpdateStatus(Texture icon, string author, string title, string year)
         {
             _meshRenderer.material.mainTexture = icon;
             _authorText.text = author;
             _titleText.text = title;
+            _yearText.text = year;
         }
 
         private void UpdateQuestStatus(string title)
