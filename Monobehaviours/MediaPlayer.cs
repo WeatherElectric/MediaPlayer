@@ -1,4 +1,5 @@
-﻿namespace MediaPlayer.Monobehaviours;
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+namespace MediaPlayer.Monobehaviours;
 
 [RegisterTypeInIl2Cpp]
 public class MediaPlayer : MonoBehaviour
@@ -82,14 +83,14 @@ public class MediaPlayer : MonoBehaviour
             //It's all broken as hell on Quest. Avoid taglib on quest, give PC the cool shit.
             if (!BoneLib.HelperMethods.IsAndroid())
             {
-                var icon = TaglibBL.GetCover(_currentClipIndex);
+                var icon = TagLib.GetCover(_currentClipIndex);
                 if (icon == null)
                 {
                     icon = Assets.DummyIcon;
                 }
-                var author = TaglibBL.GetTag(_currentClipIndex, TaglibBL.Tag.Artist);
-                var title = TaglibBL.GetTag(_currentClipIndex, TaglibBL.Tag.Title);
-                var year = TaglibBL.GetTag(_currentClipIndex, TaglibBL.Tag.Year);
+                var author = TagLib.GetTag(_currentClipIndex, TagLib.Tag.Artist);
+                var title = TagLib.GetTag(_currentClipIndex, TagLib.Tag.Title);
+                var year = TagLib.GetTag(_currentClipIndex, TagLib.Tag.Year);
                 UpdateStatus(icon, author, title, year);
                 _currentClipIndex++;
                 Main.CurrentClipIndex = _currentClipIndex;
@@ -107,7 +108,7 @@ public class MediaPlayer : MonoBehaviour
             }
             else
             {
-                var title = TaglibBL.GetFilename(_currentClipIndex);
+                var title = TagLib.GetFilename(_currentClipIndex);
                 UpdateQuestStatus(title);
                 _currentClipIndex++;
                 Main.CurrentClipIndex = _currentClipIndex;
