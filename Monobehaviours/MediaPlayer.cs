@@ -32,6 +32,7 @@ public class MediaPlayer : MonoBehaviour
         if (BoneLib.HelperMethods.IsAndroid())
         {
             Destroy(_authorText.transform.gameObject);
+            Destroy(_yearText.transform.gameObject);
         }
         PlayNextClip();
     }

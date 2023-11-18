@@ -2,12 +2,12 @@
 
 namespace MediaPlayer;
 
-public static class BoneMenu
+internal static class BoneMenu
 {
     public static void CreateMenu()
     {
         MenuCategory mainCat = MenuManager.CreateCategory("Weather Electric", "#6FBDFF");
-        MenuCategory menuCategory = mainCat.CreateCategory("Media Player", Color.white);
+        MenuCategory menuCategory = mainCat.CreateCategory("Media Player", "#ff21d2");
         menuCategory.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
         menuCategory.CreateFunctionElement("Despawn Media Player", Color.red, Despawn);
         menuCategory.CreateBoolElement("Show Playing Notifications", Color.white, Preferences.NotificationsEnabled.Value, OnBoolUpdate);
