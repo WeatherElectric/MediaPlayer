@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using MelonLoader;
-
-[assembly: AssemblyTitle(MediaPlayer.Main.Description)]
+﻿[assembly: AssemblyTitle(MediaPlayer.Main.Description)]
 [assembly: AssemblyDescription(MediaPlayer.Main.Description)]
 [assembly: AssemblyCompany(MediaPlayer.Main.Company)]
 [assembly: AssemblyProduct(MediaPlayer.Main.Name)]
