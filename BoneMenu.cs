@@ -11,7 +11,7 @@ internal static class BoneMenu
         menuCategory.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
         menuCategory.CreateFunctionElement("Despawn Media Player", Color.red, Despawn);
         menuCategory.CreateBoolElement("Show Playing Notifications", Color.white, Preferences.NotificationsEnabled.Value, OnBoolUpdate);
-        menuCategory.CreateFloatElement("Notification Duration", Color.white, 2f, 0.1f, 0.5f, 5f, OnFloatUpdate);
+        menuCategory.CreateFloatElement("Notification Duration", Color.white, Preferences.NotificationDuration.Value, 0.1f, 0.5f, 5f, OnFloatUpdate);
     }
 
     private static void OnBoolUpdate(bool value)

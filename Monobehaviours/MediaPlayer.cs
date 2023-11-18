@@ -1,10 +1,4 @@
-﻿#if PRERELEASE
-using MediaPlayer.Notifications;
-#else
-using BoneLib.Notifications;
-#endif
-
-namespace MediaPlayer.Monobehaviours;
+﻿namespace MediaPlayer.Monobehaviours;
 
 [RegisterTypeInIl2Cpp]
 public class MediaPlayer : MonoBehaviour

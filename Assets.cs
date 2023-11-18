@@ -1,6 +1,5 @@
-﻿#if PRERELEASE
-using HelperMethods = MediaPlayer;
-#endif
+﻿using AudioImportLib;
+using Random = UnityEngine.Random;
 
 namespace MediaPlayer;
 
@@ -11,9 +10,9 @@ internal static class Assets
     public static Texture2D DummyIcon;
     public static bool LoadBundle()
     {
-        if (BoneLib.HelperMethods.IsAndroid())
+        if (HelperMethods.IsAndroid())
         {
-            var bundle = HelperMethods.LoadEmbeddedAssetBundle(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.Android.bundle");
+            var bundle = HelperMethods.LoadEmbeddedAssetBundle(Main.CurrAssembly, "MediaPlayer.Resources.MediaPlayer.Android.bundle");
             ModConsole.Msg($"Loaded Android bundle: {bundle.name}", 1);
             Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/Thingy.prefab");
             ModConsole.Msg($"Loaded prefab: {Prefab.name}", 1);
@@ -22,7 +21,7 @@ internal static class Assets
         }
         else
         {
-            var bundle = HelperMethods.LoadEmbeddedAssetBundle(Assembly.GetExecutingAssembly(), "MediaPlayer.Resources.MediaPlayer.bundle");
+            var bundle = HelperMethods.LoadEmbeddedAssetBundle(Main.CurrAssembly, "MediaPlayer.Resources.MediaPlayer.bundle");
             ModConsole.Msg($"Loaded Windows bundle: {bundle.name}", 1);
             Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/Thingy.prefab");
             ModConsole.Msg($"Loaded prefab: {Prefab.name}", 1);
@@ -52,7 +51,7 @@ internal static class Assets
         }
         FilePaths = GetFilesInFolder(Main.CustomMusicDirectory);
         ShuffleAudio();
-        foreach (var clip in FilePaths.Select(filePath => AudioImportLib.API.LoadAudioClip(filePath)))
+        foreach (var clip in FilePaths.Select(filePath => API.LoadAudioClip(filePath)))
         {
             AudioClips.Add(clip);
             ModConsole.Msg($"Loaded audio clip: {clip.name}", 1);
@@ -67,7 +66,7 @@ internal static class Assets
         while (n > 1)
         {
             n--;
-            int k = UnityEngine.Random.Range(0, n + 1);
+            int k = Random.Range(0, n + 1);
             (FilePaths[k], FilePaths[n]) = (FilePaths[n], FilePaths[k]);
         }
     }

@@ -15,3 +15,4 @@ global using SLZ.Marrow.Warehouse;
 global using SLZ.SFX;
 global using TMPro;
 global using UnityEngine;
+global using BoneLib.Notifications;

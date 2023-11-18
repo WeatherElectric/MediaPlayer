@@ -1,6 +1,4 @@
-﻿using HelperMethods = BoneLib;
-
-namespace MediaPlayer;
+﻿namespace MediaPlayer;
 
 // ReSharper disable once InconsistentNaming
 public class Main : MelonMod
@@ -26,7 +24,7 @@ public class Main : MelonMod
 #if DEBUG
         ModConsole.Warning("This is a debug build! Expect bugs!");
 #endif
-        if (BoneLib.HelperMethods.IsAndroid()) ModConsole.Warning("You are on Quest! You will not get album art or any metadata!");
+        if (HelperMethods.IsAndroid()) ModConsole.Warning("You are on Quest! You will not get album art or any metadata!");
         CurrAssembly = Assembly.GetExecutingAssembly();
         if (!Assets.LoadBundle())
         {
@@ -37,6 +35,15 @@ public class Main : MelonMod
             ModConsole.Error("Failed to load audio! You likely don't have any audio in the folder!");
         }
         BoneMenu.CreateMenu();
+    }
+
+    public override void OnLateInitializeMelon()
+    {
+        var tagLibLoaded = HelperMethods.CheckIfAssemblyLoaded("TagLibSharp");
+        if (!tagLibLoaded)
+        {
+            ModConsole.Error("TagLib is not loaded, something went wrong!");
+        }
     }
         
     public override void OnSceneWasInitialized(int buildIndex, string sceneName)
@@ -49,7 +56,7 @@ public class Main : MelonMod
 
     private static void WarehouseReady()
     {
-        if (BoneLib.HelperMethods.IsAndroid()) return;
+        if (HelperMethods.IsAndroid()) return;
         if (!Assets.LoadAssembly())
         {
             ModConsole.Error("Failed to load assembly!");
@@ -58,7 +65,7 @@ public class Main : MelonMod
 
     public override void OnApplicationQuit()
     {
-        if (BoneLib.HelperMethods.IsAndroid()) return;
+        if (HelperMethods.IsAndroid()) return;
         Assets.UnloadAssembly();
     }
 }
