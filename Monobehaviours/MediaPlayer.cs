@@ -24,7 +24,7 @@ public class MediaPlayer : MonoBehaviour
         _titleText = gameObject.transform.Find("Metadata/Title").GetComponent<TextMeshPro>();
         _authorText = gameObject.transform.Find("Metadata/Artist").GetComponent<TextMeshPro>();
         _yearText = gameObject.transform.Find("Metadata/Year").GetComponent<TextMeshPro>();
-        if (BoneLib.HelperMethods.IsAndroid())
+        if (HelperMethods.IsAndroid())
         {
             Destroy(_authorText.transform.gameObject);
             Destroy(_yearText.transform.gameObject);
@@ -81,7 +81,7 @@ public class MediaPlayer : MonoBehaviour
             _audioSource.clip = Assets.AudioClips[_currentClipIndex];
             _audioSource.Play();
             //It's all broken as hell on Quest. Avoid taglib on quest, give PC the cool shit.
-            if (!BoneLib.HelperMethods.IsAndroid())
+            if (!HelperMethods.IsAndroid())
             {
                 var icon = TagLib.GetCover(_currentClipIndex);
                 if (icon == null)
@@ -95,7 +95,7 @@ public class MediaPlayer : MonoBehaviour
                 _currentClipIndex++;
                 Main.CurrentClipIndex = _currentClipIndex;
                 if (!Preferences.NotificationsEnabled.Value) return;
-                var notif = new Notification()
+                var notif = new Notification
                 {
                     Title = "Now Playing:",
                     Message = $"{title}\n{author}",
@@ -113,7 +113,7 @@ public class MediaPlayer : MonoBehaviour
                 _currentClipIndex++;
                 Main.CurrentClipIndex = _currentClipIndex;
                 if (!Preferences.NotificationsEnabled.Value) return;
-                var notif = new Notification()
+                var notif = new Notification
                 {
                     Title = "Now Playing:",
                     Message = $"{title}",
