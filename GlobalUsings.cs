@@ -16,3 +16,4 @@ global using SLZ.SFX;
 global using TMPro;
 global using UnityEngine;
 global using BoneLib.Notifications;
+global using HarmonyLib;
