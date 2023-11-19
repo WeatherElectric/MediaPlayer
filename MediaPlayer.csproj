@@ -47,7 +47,6 @@
         <Compile Include="Melon\ModConsole.cs" />
         <Compile Include="Melon\Preferences.cs" />
         <Compile Include="Monobehaviours\MediaPlayer.cs" />
-        <Compile Include="Patching\ZoneMusicPatch.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="TagLib.cs" />
     </ItemGroup>

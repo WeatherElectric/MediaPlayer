@@ -1,5 +1,4 @@
-﻿using AudioImportLib;
-using Random = UnityEngine.Random;
+﻿using Random = UnityEngine.Random;
 
 namespace MediaPlayer;
 
@@ -120,6 +119,8 @@ internal static class Assets
         if (!File.Exists(Main.DLLPath))
         {
             ModConsole.Msg("Creating TagLibSharp.dll", 1);
+            var file = HelperMethods.GetResourceBytes(Main.CurrAssembly, "TagLibSharp.dll");
+            File.WriteAllBytes(Main.DLLPath, file);
         }
         if (!_assemblyLoaded)
         {

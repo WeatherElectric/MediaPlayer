@@ -11,7 +11,6 @@ internal static class BoneMenu
         menuCategory.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
         menuCategory.CreateFunctionElement("Despawn Media Player", Color.red, Despawn);
         MenuCategory settingsCategory = menuCategory.CreateCategory("Settings", "#B0B0B0");
-        settingsCategory.CreateBoolPreference("Disable Base Game Music", Color.white, Preferences.DisableBaseGameMusic, Preferences.OwnCategory);
         settingsCategory.CreateBoolPreference("Show Playing Notifications", Color.white, Preferences.NotificationsEnabled, Preferences.OwnCategory);
         settingsCategory.CreateFloatPreference("Notification Duration", Color.white, 0.1f, 0.5f, 5f, Preferences.NotificationDuration, Preferences.OwnCategory);
     }
