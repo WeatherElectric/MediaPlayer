@@ -20,3 +20,13 @@ public class ZoneMusicPlay
         __instance.StopMusic(0f);
     }
 }
+
+[HarmonyPatch(typeof(ZoneMusic), "OnPrimaryZoneEntered")]
+public class ZoneMusicOnPrimaryZoneEntered
+{
+    public static void Postfix(ZoneMusic __instance, GameObject playerObject)
+    {
+        if (!Preferences.DisableBaseGameMusic.Value) return;
+        __instance.StopMusic(0f);
+    }
+}
