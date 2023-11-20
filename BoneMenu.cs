@@ -10,7 +10,8 @@ internal static class BoneMenu
         MenuCategory menuCategory = mainCat.CreateCategory("Media Player", "#ff21d2");
         menuCategory.CreateFunctionElement("Spawn Media Player", Color.green, Spawn);
         menuCategory.CreateFunctionElement("Despawn Media Player", Color.red, Despawn);
-        MenuCategory settingsCategory = menuCategory.CreateCategory("Settings", "#B0B0B0");
+        SubPanelElement settingsCategory = menuCategory.CreateSubPanel("Settings", "#B0B0B0");
+        if (HelperMethods.IsAndroid()) settingsCategory.CreateBoolPreference("Show Album Art", Color.white, Preferences.ShowAlbumArt, Preferences.OwnCategory);
         settingsCategory.CreateBoolPreference("Show Playing Notifications", Color.white, Preferences.NotificationsEnabled, Preferences.OwnCategory);
         settingsCategory.CreateFloatPreference("Notification Duration", Color.white, 0.1f, 0.5f, 5f, Preferences.NotificationDuration, Preferences.OwnCategory);
     }

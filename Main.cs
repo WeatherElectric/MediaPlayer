@@ -10,10 +10,11 @@ public class Main : MelonMod
     internal const string Company = "Weather Electric";
     internal const string Version = "1.1.0";
     internal const string DownloadLink = "https://bonelab.thunderstore.io/package/CarrionAndOn/MediaPlayer/";
-        
-    public static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "Weather Electric/MediaPlayer");
+
+    private static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "Weather Electric/MediaPlayer");
     public static readonly string CustomMusicDirectory = Path.Combine(UserDataDirectory, "Custom Music");
-    public static readonly string DLLPath = Path.Combine(UserDataDirectory, "TagLibSharp.dll");
+    private static readonly string PluginsDirectory = Path.Combine(MelonUtils.GameDirectory, "Plugins");
+    public static readonly string DLLPath = Path.Combine(PluginsDirectory, "TagLibSharp.dll");
         
     public static Assembly CurrAssembly { get; private set; }
     public static int CurrentClipIndex { get; set; }
@@ -25,16 +26,10 @@ public class Main : MelonMod
 #if DEBUG
         ModConsole.Warning("This is a debug build! Expect bugs!");
 #endif
-        if (HelperMethods.IsAndroid()) ModConsole.Warning("You are on Quest! You will not get album art or any metadata!");
         CurrAssembly = Assembly.GetExecutingAssembly();
-        if (!Assets.LoadBundle())
-        {
-            ModConsole.Error("Failed to load bundle!");
-        }
-        if (!Assets.LoadAudio())
-        {
-            ModConsole.Error("Failed to load audio! You likely don't have any audio in the folder!");
-        }
+        Assets.LoadAudio();
+        Assets.LoadBundle();
+        Assets.CheckAssembly();
         BoneMenu.CreateMenu();
     }
 
@@ -45,28 +40,5 @@ public class Main : MelonMod
         {
             ModConsole.Error("TagLib is not loaded, something went wrong!");
         }
-    }
-        
-    public override void OnSceneWasInitialized(int buildIndex, string sceneName)
-    {
-        if (sceneName.ToUpper().Contains("BOOTSTRAP"))
-        {
-            AssetWarehouse.OnReady(new Action(WarehouseReady));
-        }
-    }
-
-    private static void WarehouseReady()
-    {
-        if (HelperMethods.IsAndroid()) return;
-        if (!Assets.LoadAssembly())
-        {
-            ModConsole.Error("Failed to load assembly!");
-        }
-    }
-
-    public override void OnApplicationQuit()
-    {
-        if (HelperMethods.IsAndroid()) return;
-        Assets.UnloadAssembly();
     }
 }

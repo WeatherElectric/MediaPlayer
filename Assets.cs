@@ -5,37 +5,35 @@ namespace MediaPlayer;
 internal static class Assets
 {
     #region Prefab
+    
     public static GameObject Prefab;
     public static Texture2D DummyIcon;
-    public static bool LoadBundle()
+    private static AssetBundle _bundle;
+    public static void LoadBundle()
     {
         if (HelperMethods.IsAndroid())
         {
-            var bundle = HelperMethods.LoadEmbeddedAssetBundle(Main.CurrAssembly, "MediaPlayer.Resources.MediaPlayer.Android.bundle");
-            ModConsole.Msg($"Loaded Android bundle: {bundle.name}", 1);
-            Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/Thingy.prefab");
-            ModConsole.Msg($"Loaded prefab: {Prefab.name}", 1);
-            DummyIcon = bundle.LoadPersistentAsset<Texture2D>("Assets/MediaPlayer/Texture2D/dumbass.png");
-            ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", 1);
+            _bundle = HelperMethods.LoadEmbeddedAssetBundle(Main.CurrAssembly, "MediaPlayer.Resources.MediaPlayer.Android.bundle");
         }
         else
         {
-            var bundle = HelperMethods.LoadEmbeddedAssetBundle(Main.CurrAssembly, "MediaPlayer.Resources.MediaPlayer.bundle");
-            ModConsole.Msg($"Loaded Windows bundle: {bundle.name}", 1);
-            Prefab = bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/Thingy.prefab");
-            ModConsole.Msg($"Loaded prefab: {Prefab.name}", 1);
-            DummyIcon = bundle.LoadPersistentAsset<Texture2D>("Assets/MediaPlayer/Texture2D/dumbass.png");
-            ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", 1);
+            _bundle = HelperMethods.LoadEmbeddedAssetBundle(Main.CurrAssembly, "MediaPlayer.Resources.MediaPlayer.bundle");
         }
-        return  Prefab && DummyIcon != null;
+        ModConsole.Msg($"Loaded Windows bundle: {_bundle.name}", 1);
+        Prefab = _bundle.LoadPersistentAsset<GameObject>("Assets/MediaPlayer/Thingy.prefab");
+        ModConsole.Msg($"Loaded prefab: {Prefab.name}", 1);
+        DummyIcon = _bundle.LoadPersistentAsset<Texture2D>("Assets/MediaPlayer/Texture2D/dumbass.png");
+        ModConsole.Msg($"Loaded dummy icon: {DummyIcon.name}", 1);
     }
     #endregion
+    
     #region Audio
+    
     public static readonly List<AudioClip> AudioClips = new List<AudioClip>();
         
     public static List<string> FilePaths = new List<string>();
         
-    public static bool LoadAudio()
+    public static void LoadAudio()
     {
         if (!Directory.Exists(Main.CustomMusicDirectory))
         {
@@ -55,8 +53,6 @@ internal static class Assets
             AudioClips.Add(clip);
             ModConsole.Msg($"Loaded audio clip: {clip.name}", 1);
         }
-            
-        return AudioClips != null;
     }
         
     private static void ShuffleAudio()
@@ -99,46 +95,19 @@ internal static class Assets
     }
         
     #endregion
+    
     #region Assembly
-    private static bool _assemblyLoaded;
-        
-    [DllImport("kernel32.dll")]
-    private static extern IntPtr LoadLibrary(string dllToLoad);
-
-    [DllImport("kernel32.dll")]
-    private static extern bool FreeLibrary(IntPtr hModule);
-
-    private static IntPtr _lib;
-        
-    public static bool LoadAssembly()
+    
+    public static void CheckAssembly()
     {
-        if (!Directory.Exists(Main.UserDataDirectory))
-        {
-            Directory.CreateDirectory(Main.UserDataDirectory);
-        }
         if (!File.Exists(Main.DLLPath))
         {
             ModConsole.Msg("Creating TagLibSharp.dll", 1);
             var file = HelperMethods.GetResourceBytes(Main.CurrAssembly, "TagLibSharp.dll");
             File.WriteAllBytes(Main.DLLPath, file);
-        }
-        if (!_assemblyLoaded)
-        {
-            ModConsole.Msg("Loading TagLibSharp.dll", 1);
-            _lib = LoadLibrary(Main.DLLPath);
-            _assemblyLoaded = _lib != null;
-        }
-        return _assemblyLoaded;
-    }
-        
-    public static void UnloadAssembly()
-    {
-        if (_assemblyLoaded)
-        {
-            ModConsole.Msg("Unloading TagLibSharp.dll", 1);
-            FreeLibrary(_lib);
-            _assemblyLoaded = false;
+            ModConsole.Warning("Please restart the game! TagLibSharp was not in Plugins, so I have created it, but it requires a game restart!");
         }
     }
+    
     #endregion
 }

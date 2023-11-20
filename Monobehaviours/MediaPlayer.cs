@@ -80,8 +80,28 @@ public class MediaPlayer : MonoBehaviour
         {
             _audioSource.clip = Assets.AudioClips[_currentClipIndex];
             _audioSource.Play();
-            //It's all broken as hell on Quest. Avoid taglib on quest, give PC the cool shit.
-            if (!HelperMethods.IsAndroid())
+            if (HelperMethods.IsAndroid() && !Preferences.ShowAlbumArt.Value)
+            {
+                var icon = Assets.DummyIcon;
+                var author = TagLib.GetTag(_currentClipIndex, TagLib.Tag.Artist);
+                var title = TagLib.GetTag(_currentClipIndex, TagLib.Tag.Title);
+                var year = TagLib.GetTag(_currentClipIndex, TagLib.Tag.Year);
+                UpdateStatus(icon, author, title, year);
+                _currentClipIndex++;
+                Main.CurrentClipIndex = _currentClipIndex;
+                if (!Preferences.NotificationsEnabled.Value) return;
+                var notif = new Notification
+                {
+                    Title = "Now Playing:",
+                    Message = $"{title}\n{author}",
+                    Type = NotificationType.CustomIcon,
+                    CustomIcon = icon,
+                    PopupLength = Preferences.NotificationDuration.Value,
+                    ShowTitleOnPopup = true
+                };
+                Notifier.Send(notif);
+            }
+            else
             {
                 var icon = TagLib.GetCover(_currentClipIndex);
                 if (icon == null)
@@ -106,23 +126,6 @@ public class MediaPlayer : MonoBehaviour
                 };
                 Notifier.Send(notif);
             }
-            else
-            {
-                var title = TagLib.GetFilename(_currentClipIndex);
-                UpdateQuestStatus(title);
-                _currentClipIndex++;
-                Main.CurrentClipIndex = _currentClipIndex;
-                if (!Preferences.NotificationsEnabled.Value) return;
-                var notif = new Notification
-                {
-                    Title = "Now Playing:",
-                    Message = $"{title}",
-                    Type = NotificationType.Information,
-                    PopupLength = Preferences.NotificationDuration.Value,
-                    ShowTitleOnPopup = true
-                };
-                Notifier.Send(notif);
-            }
         }
     }
 
@@ -133,12 +136,6 @@ public class MediaPlayer : MonoBehaviour
         _titleText.text = title;
         _yearText.text = year;
     }
-
-    private void UpdateQuestStatus(string title)
-    {
-        _titleText.text = title;
-        _meshRenderer.material.mainTexture = Assets.DummyIcon;
-    }
-        
+    
     public MediaPlayer(IntPtr ptr) : base(ptr) { }
 }
