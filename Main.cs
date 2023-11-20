@@ -8,7 +8,7 @@ public class Main : MelonMod
     internal const string Description = "Plays custom MP3 files in game";
     internal const string Author = "SoulWithMae";
     internal const string Company = "Weather Electric";
-    internal const string Version = "1.1.0";
+    internal const string Version = "1.2.0";
     internal const string DownloadLink = "https://bonelab.thunderstore.io/package/CarrionAndOn/MediaPlayer/";
 
     private static readonly string UserDataDirectory = Path.Combine(MelonUtils.UserDataDirectory, "Weather Electric/MediaPlayer");
